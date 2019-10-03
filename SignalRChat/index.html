@@ -1,10 +1,10 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    
-    
 
+    <script>
     
+    </script>
 </head>
 
               
@@ -86,21 +86,30 @@
 
 
 
-    $(function () {
+        $(function () {
 
-    var buttons = ['1', '1', '1', '1', '1', '1'];
-    var index = 0;
-    var chat = $.connection.chatHub;
+            var buttons = ['1', '1', '1', '1', '1', '1'];
+            var index = 0;
+            var chat = $.connection.chatHub;
+            var whoseturn = 1;
 
+       
 
         $('#Join').click(function () {
 
             //put name in here
             chat.server.register($('#Name').val());
+
+           // chat.server.printturn();
+            //var temp = $('#Name').val();
+            //$("#turn").html("" + temp + ", It's your turn!");
+
+            
+
         });
 
 
-    //called from server
+    //called from server's play - mesage is button pressed
     chat.client.pressbutton = function(message) {
 
     if (message == "1") {
@@ -111,28 +120,43 @@
 
     $('header').append(jQuery("#button2").prop("disabled", true));
     }
-    }
+        }
+
+
+
+        
+        
+
 
 
 
     $('#button1').click(function () {
+        chat.server.printturn();
+        //calls pressbutton and disables that button
+        chat.server.play($('#Name').val(), "1");
+        //decides whos turn and send to printname for printing
+        //chat.server.();
+        //chat.server.printturn();
+        
+        });
 
 
-    //var yourname = $('#name').val();
 
-    chat.server.play($('#Name').val(), "1");
-    // Clear text box and reset focus for next comment.
-    //$('#message').val('').focus();
-    });
 
+        chat.client.printname = function (message) {
+            whoseturn = whosturn;
+            $("#turn").html("" + message + ", It's your turn!");
+        }
 
 
     $('#button2').click(function () {
+    chat.server.printturn();
     // Call the Send method on the hub.
     //chat.server.send($('#displayname').val(), $('#message').val());
     chat.server.play($('#Name').val(), "2");
     // Clear text box and reset focus for next comment.
     //$('#message').val('').focus();
+    
     });
 
     //$('#button3').click(function () {
@@ -177,7 +201,8 @@
             <input type="button" id="button6" name="button6" value="6" />
             <input type="text" id="Name" name="Name" value="" />
             <input type="button" id="Join" name="Join" value="Register" />
-
+            <div id="turn"></div>
+                
         </form>
     </div>
 
