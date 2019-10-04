@@ -68,7 +68,7 @@ namespace SignalRChat
         //{
         //    
         //}
-
+        
         public void printturn()
         {
             string name = "";
@@ -101,15 +101,24 @@ namespace SignalRChat
 
         }
 
-            
 
-        public void register(string name)
+
+
+
+        
+
+
+
+        public string register(string name)
         {
              Debug.Write("play");
             A_client.ConnectionId = Context.ConnectionId;
             A_client.Name = name;
             ClientList.Add(A_client);
 
+            
+
+            return ("A");
         }
         //passes in message is which click button 
         //1 or zero
@@ -118,11 +127,15 @@ namespace SignalRChat
             //Debug.Write("play");
             //for (int i = 0; i <= 1; i++)
             //{
+               //if the correct user is presing the click number button
                if (name == ClientList[whoseturn].Name)
                 {
+                //controls whos turn is it and sends name for printing
+                
+
                     //if (ClientList[i].ConnectionId == Context.ConnectionId)
                     //{
-                        if (message == "1")
+                if (message == "1")
                         {
 
                             //disabled buttons!
@@ -136,11 +149,27 @@ namespace SignalRChat
                             Clients.Client(ClientList[0].ConnectionId).pressbutton(message);
                             Clients.Client(ClientList[1].ConnectionId).pressbutton(message);
                         }
-                 
-               }
-               //printturn();
+                printturn();
+            }
+               
 
         }
+        
+        //public void initial(string name)
+        //{
+        //    var a = 1;
+            //if (name == ClientList[0].Name)
+            //{
+
+
+
+            //    //get rid of whoseturn
+            //    Clients.Client(ClientList[0].ConnectionId).printname(name);
+            //    Clients.Client(ClientList[1].ConnectionId).printname(name);
+            //    //return (name);
+            //}
+
+        //}
     }
 
 }

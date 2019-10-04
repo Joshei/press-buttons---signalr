@@ -91,15 +91,21 @@
             var buttons = ['1', '1', '1', '1', '1', '1'];
             var index = 0;
             var chat = $.connection.chatHub;
-            var whoseturn = 1;
+            
 
        
 
         $('#Join').click(function () {
 
+            $('#Join').hide();
+            $('#Name').hide();
             //put name in here
             chat.server.register($('#Name').val());
+            //$('#Join').hide();
+           
 
+            //chat.server.initial($('#Name').val());
+            
            // chat.server.printturn();
             //var temp = $('#Name').val();
             //$("#turn").html("" + temp + ", It's your turn!");
@@ -124,6 +130,7 @@
 
 
 
+
         
         
 
@@ -131,12 +138,15 @@
 
 
     $('#button1').click(function () {
-        chat.server.printturn();
-        //calls pressbutton and disables that button
-        chat.server.play($('#Name').val(), "1");
-        //decides whos turn and send to printname for printing
-        //chat.server.();
+
+
+          
         //chat.server.printturn();
+       
+
+        //disables button calls press button to disable, if correct named user, also changes whosturnisit
+        chat.server.play($('#Name').val(), "1");
+        
         
         });
 
@@ -144,20 +154,19 @@
 
 
         chat.client.printname = function (message) {
-            whoseturn = whosturn;
-            $("#turn").html("" + message + ", It's your turn!");
+            
+            $("#turn").html("" + message + ", it's your turn!");
         }
 
 
+
     $('#button2').click(function () {
-    chat.server.printturn();
-    // Call the Send method on the hub.
-    //chat.server.send($('#displayname').val(), $('#message').val());
+    //chat.server.printturn();
     chat.server.play($('#Name').val(), "2");
     // Clear text box and reset focus for next comment.
     //$('#message').val('').focus();
-    
     });
+
 
     //$('#button3').click(function () {
     //    chat.server.send("nomessage", "3");
@@ -178,7 +187,7 @@
 
     </script>
 
-    <button id="show-all-connections">Show Connections</button>
+    
     <ul id="user-list"></ul>
 
     <!--<ul id="discussion"></ul>
@@ -191,7 +200,7 @@
     <div id="div1" class="container">
 
         <form>
-            
+
 
             <input type="button" id="button1" name="button1" value="1" />
             <input type="button" id="button2" name="button2" value="2" />
@@ -199,10 +208,11 @@
             <input type="button" id="button4" name="button4" value="4" />
             <input type="button" id="button5" name="button5" value="5" />
             <input type="button" id="button6" name="button6" value="6" />
-            <input type="text" id="Name" name="Name" value="" />
+            <input type="text" id="Name" name="Name" value="a" />
             <input type="button" id="Join" name="Join" value="Register" />
+            
             <div id="turn"></div>
-                
+
         </form>
     </div>
 
