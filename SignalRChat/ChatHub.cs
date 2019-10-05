@@ -31,8 +31,9 @@ namespace SignalRChat
         //not best way
         //https://www.codeproject.com/Questions/233650/How-to-define-Global-veriable-in-Csharp-net
         static int whoseturn = 0;
-        
-       
+        static int integer = 0;
+        int myplayernumber = -1;
+
         //clients : found in 
         clients A_client = new clients();
 
@@ -76,13 +77,13 @@ namespace SignalRChat
             {
 
                 //Clients.Client(ClientList[1].ConnectionId).printturn(name);
-                name = ClientList[1].Name;
+                name = "Player Two";// ClientList[1].Name;
             }
             //second player
             if (whoseturn == 1)
             {
                 //Clients.Client(ClientList[0].ConnectionId).printturn(name);
-                name = ClientList[0].Name;
+               // name = "Player One";// ClientList[0].Name;
             }
 
             if (whoseturn == 0)
@@ -116,6 +117,22 @@ namespace SignalRChat
             A_client.Name = name;
             ClientList.Add(A_client);
 
+            if(integer == 0)
+            {
+                myplayernumber = 1;
+                integer = integer + 1;
+            }
+            else if (integer == 1)
+            {
+                myplayernumber = 2;
+            }
+
+            if(myplayernumber == 2)
+            {
+                Clients.Client(ClientList[0].ConnectionId).printinitial();
+                Clients.Client(ClientList[1].ConnectionId).printinitial();
+            }
+
             
 
             return ("A");
@@ -148,9 +165,11 @@ namespace SignalRChat
 
                             Clients.Client(ClientList[0].ConnectionId).pressbutton(message);
                             Clients.Client(ClientList[1].ConnectionId).pressbutton(message);
-                        }
+                          
+                }
                 printturn();
             }
+                
                
 
         }

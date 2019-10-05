@@ -108,6 +108,8 @@
                 $('#Name').hide();
                 //put name in here
                 chat.server.register($('#Name').val());
+
+                $("#turn").html("Player one, it's your turn!");
                 //$('#Join').hide();
 
 
@@ -121,9 +123,20 @@
 
             });
 
+            
+            chat.client.printinital = function ()
+            {
+               
+                //second user joined
+               
+                    $("#turn").html("Player one, it's your turn!");
+              
+
+            }
 
             //called from server's play - mesage is button pressed
-            chat.client.pressbutton = function (message) {
+            chat.client.pressbutton = function (message)
+            {
 
                 if (message == "1") {
 
